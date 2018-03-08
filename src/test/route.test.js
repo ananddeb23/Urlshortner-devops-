@@ -25,6 +25,30 @@ describe('corretc HTTP response should be given  for ', () => {
       done();
     });
   });
+  it('/getshorturl  must return response of short url for a long url sent', (done) => {
+    const req = {
+      method: 'POST',
+      payload: { url: 'https://github.com/abhinavdhasmana/tinyUrl/blob/master/src/lib/createUrl.js' },
+      url: '/getshorturl',
+    };
+    server.inject(req, (res) => {
+      console.log(res);
+      expect(res.result.shortUrl).toBe('IvZo+R');
+      done();
+    });
+  });
+  it('/getshorturl  must return response of short url for a long url already added in db', (done) => {
+    const req = {
+      method: 'POST',
+      payload: { url: 'https://github.com/abhinavdhasmana/tinyUrl/blob/master/src/lib/createUrl.js' },
+      url: '/getshorturl',
+    };
+    server.inject(req, (res) => {
+      console.log(res);
+      expect(res.result.shortUrl).toBe('IvZo+R');
+      done();
+    });
+  });
 });
 describe('corretc HTTP response should be given  for ', () => {
   it('/ping must return response of 200', (done) => {
@@ -87,6 +111,17 @@ describe('/getlongUrl must return  ', () => {
     server.inject(req, (res) => {
       // console.log(res.statusCode);
       expect(res.statusCode).toBe(200);
+      done();
+    });
+  });
+  it(' response of url not in databse for a given short url not in db', (done) => {
+    const req = {
+      method: 'GET',
+      url: '/getLong?code=3il9MH',
+    };
+    server.inject(req, (res) => {
+      // console.log(res.statusCode);
+      expect(res.payload).toBe(' url not in databse');
       done();
     });
   });

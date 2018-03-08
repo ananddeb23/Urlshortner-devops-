@@ -1,15 +1,18 @@
 const Models = require('../../models');
 const createUrl = require('../../src/helpers/createShortUrlAndInsert');
-
-
-beforeEach((done) => {
-  Models.urlstore.truncate().then(() => {
-    done();
-  });
-});
+const { promisify } = require('util');
+const redisClient = require('../redis');
 
 
 describe('Tests for inserting writing into the db', () => {
+  beforeEach((done) => {
+    Models.urlstore.truncate().then(() => {
+      const redisFlushAll = promisify(redisClient.flushdb).bind(redisClient);
+      redisFlushAll().then(() => {
+        done();
+      });
+    });
+  });
   test('should create a new url entry', (done) => {
     createUrl('https://github.com/abhinavdhasmana/tinyUrl/blob/master/test/lib/createUrl.js', 'HASH123456').then((result) => {
       // consol
@@ -33,6 +36,14 @@ describe('Tests for inserting writing into the db', () => {
 });
 
 describe('Tests for inserting writing into the db with conflict ', () => {
+  beforeEach((done) => {
+    Models.urlstore.truncate().then(() => {
+      const redisFlushAll = promisify(redisClient.flushdb).bind(redisClient);
+      redisFlushAll().then(() => {
+        done();
+      });
+    });
+  });
   test('should create a new url entry', (done) => {
     createUrl('https://github.com/abhinavdhasmana/tinyUrl/blob/master/test/lib/createUrl.js', 'HASH12345656').then(() => {
       // consol
@@ -59,6 +70,14 @@ describe('Tests for inserting writing into the db with conflict ', () => {
 });
 
 describe('Tests for inserting writing into the db with same url should just return the url ', () => {
+  beforeEach((done) => {
+    Models.urlstore.truncate().then(() => {
+      const redisFlushAll = promisify(redisClient.flushdb).bind(redisClient);
+      redisFlushAll().then(() => {
+        done();
+      });
+    });
+  });
   test('should create a new url entry', (done) => {
     createUrl('https://github.com/abhinavdhasmana/tinyUrl/blob/master/test/lib/createUrl.js', 'HASH12345656').then(() => {
       // consol
