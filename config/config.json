@@ -1,0 +1,30 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "123",
+    "database": "urlshort_dev",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "pool": {
+    "max": 100,
+    "min": 8,
+"acquire": 10000
+
+    
+    }
+  },
+  "test": {
+    "username": "postgres",
+    "password": "123",
+    "database": "urlshort_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
