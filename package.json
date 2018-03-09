@@ -8,6 +8,16 @@
     "start": "sequelize db:migrate && node ./src/server.js",
     "test": "NODE_ENV=test sequelize db:migrate:undo:all && NODE_ENV=test sequelize db:migrate && jest --coverage --forceExit --runInBand"
   },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 95,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    }
+  },
   "author": "Anand",
   "license": "ISC",
   "devDependencies": {
