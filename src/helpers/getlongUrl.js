@@ -1,6 +1,8 @@
 const Models = require('../../models');
 const redisClient = require('../redis');
-const { promisify } = require('util');
+const {
+  promisify,
+} = require('util');
 
 const redisHget = promisify(redisClient.hget).bind(redisClient);
 const redisHset = promisify(redisClient.hset).bind(redisClient);
@@ -10,7 +12,9 @@ const getlongUrl = code =>
       if (res === null) {
         console.log('Cache miss');
         return Models.urlstore.findOne({
-          where: { shorturl: code },
+          where: {
+            shorturl: code,
+          },
         })
           .then((obj) => {
             if (obj !== null) {
