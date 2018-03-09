@@ -9,10 +9,10 @@ jobs:
       # specify the version you desire here
       - image: circleci/node:8.9.4
       - image: circleci/postgres:10.1
-    environment:
-         POSTGRES_USER: urlshort_test
-        POSTGRES_PASSWORD: 123
-        -POSTGRES_DB: urlshort_test
+        environment:
+          POSTGRES_USER: urlshort_test
+          POSTGRES_PASSWORD: 123
+          POSTGRES_DB: urlshort_test
       - image: circleci/redis:4.0.8
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
